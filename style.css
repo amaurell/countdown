@@ -1,0 +1,177 @@
+/* Estilo base */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #000000, #333333);
+    color: white;
+}
+
+/* Container principal */
+.container {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    /* max-width: 1000px; */
+}
+
+/* Título */
+h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Estilo do contador */
+#countdown {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+/* Estilo dos itens do contador */
+.countdown-item {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Estilo dos números */
+#countdown span {
+    font-size: 1.5em;
+    display: block;
+}
+
+/* Esconder segundos em dispositivos móveis */
+
+
+/* @media (max-width: 768px) {
+    .seconds {
+        display: none;
+    }
+    #countdown {
+        font-size: 1.1em;
+    }
+    
+} */
+
+/* Estilo responsivo */
+@media (min-width: 600px) {
+    .container {
+        width: 80%;
+    }
+
+    #countdown {
+        font-size: 1.4em;
+    }
+
+    #countdown span {
+        font-size: 1.4em;
+    }
+}
+
+@media (min-width: 900px) {
+    .container {
+        width: 60%;
+    }
+
+    #countdown {
+        font-size: 2.9em;
+    }
+
+    #countdown span {
+        font-size: 2.9em;
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 740px){
+    .seconds {
+        display: none;
+    }
+    .container {
+        width: 80%;
+    }
+
+    #countdown {
+        font-size: 0.9em;
+    }
+
+    #countdown span {
+        font-size: 0.9em;
+    }
+}
+@media screen and (min-width: 375px) and (max-width: 667px){
+    .seconds {
+        display: none;
+    }
+    .container {
+        width: 80%;
+    }
+
+    #countdown {
+        font-size: 1.0em;
+    }
+
+    #countdown span {
+        font-size: 1.0em;
+    }
+}
+@media screen and (min-width: 414px) and (max-width: 896px){
+    .seconds {
+        display: none;
+    }
+    .container {
+        width: 80%;
+    }
+
+    #countdown {
+        font-size: 1.1em;
+    }
+
+    #countdown span {
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (min-width: 412px) and (max-width: 915px){
+    .seconds {
+        display: none;
+    }
+    .container {
+        width: 80%;
+    }
+
+    #countdown {
+        font-size: 1.15em;
+    }
+
+    #countdown span {
+        font-size: 1.15em;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px){
+    .seconds {
+        display: block;
+    }
+    .container {
+        width: 80%;
+    }
+
+    #countdown {
+        font-size: 1.7em;
+    }
+
+    #countdown span {
+        font-size: 1.7em;
+    }
+}
