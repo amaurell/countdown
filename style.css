@@ -1,0 +1,480 @@
+/* ========================================
+   DARK MODE FIRST DESIGN SYSTEM
+   Premium Countdown Application
+   ======================================== */
+
+/* ========================================
+   DESIGN TOKENS - DARK MODE FIRST
+   ======================================== */
+
+:root {
+    /* ===== DARK MODE FIRST (DEFAULT) ===== */
+    /* Cores Profundas e Vibrantes */
+    --color-primary-h: 250;
+    --color-primary-s: 80%;
+    --color-primary-l: 65%;
+    --color-secondary-h: 320;
+    --color-secondary-s: 90%;
+    --color-secondary-l: 60%;
+
+    /* Backgrounds */
+    --bg-app: #050510;
+    --bg-mesh-1: radial-gradient(circle at 0% 0%, hsla(250, 60%, 20%, 0.4) 0%, transparent 50%);
+    --bg-mesh-2: radial-gradient(circle at 100% 100%, hsla(320, 60%, 20%, 0.4) 0%, transparent 50%);
+
+    /* Glassmorphism Dark - Sofisticado */
+    --glass-bg: rgba(20, 20, 35, 0.4);
+    --glass-bg-card: rgba(30, 30, 50, 0.35);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-blur: blur(20px);
+
+    /* Texto */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+
+    /* Sombras - Glow */
+    --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 20px rgba(100, 100, 255, 0.15);
+
+    /* Fontes e Espaçamento */
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --radius-container: 40px;
+    --radius-card: 24px;
+}
+
+/* ===== LIGHT MODE (GLASSMORPHISM PURO) ===== */
+[data-theme="light"] {
+    /* Cores mais frescas e luminosas */
+    --color-primary-h: 220;
+    --color-primary-s: 90%;
+    --color-primary-l: 50%;
+    --color-secondary-h: 300;
+    --color-secondary-s: 85%;
+    --color-secondary-l: 55%;
+
+    /* Backgrounds - Aurora */
+    --bg-app: #f0f2f5;
+    --bg-mesh-1: radial-gradient(circle at 10% 10%, hsla(220, 80%, 80%, 0.5) 0%, transparent 60%);
+    --bg-mesh-2: radial-gradient(circle at 90% 90%, hsla(300, 80%, 90%, 0.6) 0%, transparent 60%);
+
+    /* Glassmorphism Light - Cristalino */
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    /* Mais transparente */
+    --glass-bg-card: rgba(255, 255, 255, 0.65);
+    /* Mais leitoso */
+    --glass-border: rgba(255, 255, 255, 0.8);
+    /* Borda branca forte */
+    --glass-blur: blur(24px);
+
+    /* Texto */
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a6a;
+
+    /* Sombras - Suaves e Coloridas */
+    --shadow-card:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 10px 15px -3px rgba(0, 0, 0, 0.05),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    --shadow-glow: none;
+}
+
+/* ========================================
+   GLOBAL RESETS & BODY
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-body);
+    background-color: var(--bg-app);
+    background-image: var(--bg-mesh-1), var(--bg-mesh-2);
+    background-size: 150% 150%;
+    background-attachment: fixed;
+    color: var(--text-primary);
+    overflow: hidden;
+    /* Evita scroll desnecessário no desktop */
+    transition: background-color 0.5s ease;
+}
+
+/* ========================================
+   THEME TOGGLE
+   ======================================== */
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: var(--glass-bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: all 0.3s ease;
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-card);
+    color: var(--text-primary);
+    outline: none;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg) scale(1.1);
+    background: var(--glass-border);
+}
+
+.theme-icon {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+[data-theme="light"] .theme-icon {
+    filter: none;
+}
+
+/* ========================================
+   ANIMATED BACKGROUND ORBS
+   ======================================== */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(100px);
+    opacity: 0.25;
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: var(--z-base);
+}
+
+body::before {
+    width: 600px;
+    height: 600px;
+    background: var(--gradient-primary);
+    top: -300px;
+    left: -300px;
+    animation-delay: 0s;
+}
+
+body::after {
+    width: 500px;
+    height: 500px;
+    background: var(--gradient-secondary);
+    bottom: -250px;
+    right: -250px;
+    animation-delay: 10s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(60px, -60px) scale(1.15);
+    }
+
+    66% {
+        transform: translate(-60px, 60px) scale(0.85);
+    }
+}
+
+/* ========================================
+   CONTAINER & LAYOUT
+   ======================================== */
+.container {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-container);
+    padding: 3rem;
+    text-align: center;
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-card);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* ========================================
+   COUNTDOWN GRID SYSTEM
+   ======================================== */
+#countdown {
+    display: grid;
+    /* DESKTOP DEFAULT: Linha única (5 colunas) */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.countdown-item {
+    background: var(--glass-bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Efeito de brilho no hover */
+.countdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.countdown-item:hover::before {
+    left: 100%;
+}
+
+/* Números */
+.countdown-item span {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Labels (Dias, Horas, etc) */
+.countdown-item::after {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN (MOBILE - NO SCROLL & FIXED BUTTON)
+   ======================================== */
+@media screen and (max-width: 900px) {
+
+    /* 1. RESET RADICAL DE SCROLL */
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden !important;
+        /* Bloqueia scroll global */
+        position: fixed;
+        /* Trava o corpo na tela */
+    }
+
+    /* 2. BOTÃO DE TEMA (VISIBILIDADE FORÇADA) */
+    .theme-toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: fixed !important;
+        top: 15px !important;
+        right: 15px !important;
+        z-index: 2147483647 !important;
+        /* Z-Index Máximo Possível */
+
+        width: 48px !important;
+        height: 48px !important;
+
+        background-color: var(--glass-bg-card) !important;
+        border: 1px solid var(--glass-border) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        border-radius: 50% !important;
+        backdrop-filter: blur(10px) !important;
+    }
+
+    /* 3. CONTAINER DE TELA CHEIA */
+    .container {
+        position: absolute;
+        /* Remove do fluxo normal */
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        max-height: none !important;
+
+        padding: 1rem 1.5rem !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+
+        overflow: hidden !important;
+        /* Bloqueia scroll interno */
+    }
+
+    /* 4. TÍTULO COMPACTO */
+    h1 {
+        margin-top: 3rem !important;
+        /* Espaço para o botão */
+        margin-bottom: 1rem !important;
+        font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+        flex-shrink: 0;
+        /* Não deixa sumir */
+        line-height: 1.2;
+    }
+
+    /* 5. COUNTDOWN FLEXÍVEL (SEM SCROLL) */
+    #countdown {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100%;
+        max-width: 500px;
+        flex: 1;
+        /* Ocupa todo o espaço vertical restante */
+        gap: 0.5rem !important;
+        overflow: hidden !important;
+        /* Garante zero scroll */
+        justify-content: center;
+        /* Centraliza itens */
+        min-height: 0;
+        /* Permite flex shrink funcionar corretamente */
+        padding-bottom: 1rem;
+    }
+
+    .countdown-item {
+        flex: 1;
+        /* Cada item cresce/encolhe igualmente */
+        display: flex;
+        flex-direction: row;
+        /* Horizontal */
+        justify-content: space-between;
+        align-items: center;
+
+        min-height: 0;
+        /* Crítico para evitar overflow */
+        max-height: 80px;
+        /* Limite visual */
+
+        padding: 0 1.5rem !important;
+        margin: 0 !important;
+
+        border-radius: 12px;
+    }
+
+    .countdown-item span {
+        font-size: clamp(1.5rem, 4vh, 2.5rem);
+        /* Fonte responde à ALTURA da tela */
+        order: 2;
+        line-height: 1;
+    }
+
+    .countdown-item::after {
+        order: 1;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    /* Esconder segundos em telas minúsculas para caber */
+    @media screen and (max-height: 500px) {
+        .seconds {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 1rem !important;
+            margin-top: 2.5rem !important;
+        }
+
+        .countdown-item {
+            padding: 0 1rem !important;
+        }
+    }
+}
+
+/* Telas MUITO pequenas (iPhone SE / dobrados) */
+@media screen and (max-height: 700px) and (max-width: 900px) {
+    h1 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+    }
+
+    #countdown {
+        gap: 0.5rem;
+    }
+
+    .countdown-item {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .countdown-item span {
+        font-size: 1.75rem;
+    }
+}
+
+
+/* ========================================
+   ACCESSIBILITY & ANIMATIONS
+   ======================================== */
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus styles for accessibility */
+.countdown-item:focus-visible {
+    outline: 2px solid hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+    outline-offset: 4px;
+    box-shadow:
+        var(--shadow-xl),
+        var(--shadow-glow-primary);
+}

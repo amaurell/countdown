@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem Regressiva</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+    </button>
+
+    <div class="container">
+        <h1>[ COUNTDOWN ]</h1>
+        <div id="countdown">
+            <div class="countdown-item">
+                <span id="months"></span>Mês
+            </div>
+            <div class="countdown-item">
+                <span id="days"></span>Dia
+            </div>
+            <div class="countdown-item">
+                <span id="hours"></span>Hora
+            </div>
+            <div class="countdown-item">
+                <span id="minutes"></span>Min
+            </div>
+            <div class="countdown-item seconds">
+                <span id="seconds"></span>Seg
+            </div>
+        </div>
+    </div>
+
+    <!-- Application - Standalone Version (funciona sem servidor HTTP) -->
+    <script src="app-standalone.js"></script>
+</body>
+
+</html>
