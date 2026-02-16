@@ -1,4 +1,5 @@
 # ⏳ Premium Countdown Timer
+<img src="countdown.jpg" alt="Image do Projeto" width="800"/>
 
 ## 🎯 Objetivo do Aplicativo
 Este é um aplicativo de contagem regressiva de alta precisão e estética premium, projetado para oferecer uma experiência visual imersiva tanto em desktops quanto em dispositivos móveis.
