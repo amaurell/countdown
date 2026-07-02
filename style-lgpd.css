@@ -1,8 +1,8 @@
 /* ========================================
-   LGPD CONSENT OVERLAY (MODAL BLOQUEANTE)
+   LGPD CONSENT BANNER (RODAPE BLOQUEANTE)
    ======================================== */
 
-/* Overlay fullscreen que bloqueia interacao com a pagina */
+/* Overlay fullscreen INVISIVEL que bloqueia cliques na pagina */
 .lgpd-banner {
     position: fixed;
     top: 0;
@@ -10,18 +10,10 @@
     right: 0;
     bottom: 0;
     z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-
-    background: rgba(5, 5, 16, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
 
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .lgpd-banner.active {
@@ -29,64 +21,70 @@
     visibility: visible;
 }
 
-/* Card do banner centralizado */
+/* Barra visivel no rodape */
 .lgpd-banner-content {
-    max-width: 520px;
-    width: 100%;
-    background: rgba(20, 20, 35, 0.97);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 32px 28px 24px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    text-align: center;
-    transform: scale(0.9) translateY(20px);
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background: rgba(10, 10, 25, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .lgpd-banner.active .lgpd-banner-content {
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
 }
 
 .lgpd-banner-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
+    font-size: 24px;
+    flex-shrink: 0;
 }
 
 .lgpd-banner-text {
-    margin-bottom: 20px;
+    flex: 1;
+    min-width: 200px;
 }
 
 .lgpd-banner-text p {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.85);
 }
 
 .lgpd-banner-text p:first-child {
-    margin-bottom: 8px;
-}
-
-.lgpd-banner-text strong {
-    color: #fff;
+    margin-bottom: 4px;
 }
 
 .lgpd-banner-actions {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
+    flex-shrink: 0;
     flex-wrap: wrap;
 }
 
 .lgpd-btn {
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    padding: 10px 28px;
+    padding: 8px 20px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
@@ -105,8 +103,8 @@
 
 .lgpd-btn-secondary {
     background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .lgpd-btn-secondary:hover {
@@ -117,41 +115,31 @@
 .lgpd-link {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
     transition: color 0.2s;
-    display: inline-block;
-    margin-left: 4px;
 }
 
 .lgpd-link:hover {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Light mode adjustments */
-[data-theme="light"] .lgpd-banner {
-    background: rgba(240, 242, 245, 0.85);
-}
-
+/* Light mode */
 [data-theme="light"] .lgpd-banner-content {
-    background: rgba(255, 255, 255, 0.97);
-    border-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+    background: rgba(240, 242, 245, 0.98);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .lgpd-banner-text p {
-    color: rgba(0, 0, 0, 0.7);
-}
-
-[data-theme="light"] .lgpd-banner-text strong {
-    color: #000;
+    color: rgba(0, 0, 0, 0.75);
 }
 
 [data-theme="light"] .lgpd-btn-secondary {
-    background: rgba(0, 0, 0, 0.05);
-    color: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.65);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -161,47 +149,35 @@
 }
 
 [data-theme="light"] .lgpd-link {
-    color: rgba(0, 0, 0, 0.35);
+    color: rgba(0, 0, 0, 0.4);
     border-bottom-color: rgba(0, 0, 0, 0.15);
 }
 
 [data-theme="light"] .lgpd-link:hover {
-    color: rgba(0, 0, 0, 0.7);
+    color: rgba(0, 0, 0, 0.8);
 }
 
 /* Mobile */
 @media screen and (max-width: 600px) {
-    .lgpd-banner {
-        padding: 16px;
-        align-items: flex-end;
-    }
-
     .lgpd-banner-content {
-        padding: 24px 20px 20px;
-        border-radius: 16px;
-    }
-
-    .lgpd-banner-icon {
-        font-size: 32px;
-    }
-
-    .lgpd-banner-text p {
-        font-size: 13px;
+        padding: 16px;
+        flex-direction: column;
+        text-align: center;
     }
 
     .lgpd-banner-actions {
-        flex-direction: column;
+        justify-content: center;
         width: 100%;
+    }
+
+    .lgpd-banner-text p {
+        font-size: 12px;
     }
 
     .lgpd-btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 15px;
-    }
-
-    .lgpd-link {
-        margin-left: 0;
-        margin-top: 4px;
+        font-size: 12px;
+        padding: 10px 16px;
+        flex: 1;
+        min-width: 100px;
     }
 }
