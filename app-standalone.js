@@ -472,9 +472,10 @@ class ConsentController {
     _showBanner() {
         if (this.banner) {
             // Pequeno delay para animacao de entrada
-            requestAnimationFrame(() => {
-                this.banner.classList.add('active');
-            });
+            // Mostra na hora
+            
+                this.banner.classList.add("active");
+
         }
     }
 

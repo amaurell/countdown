@@ -2,23 +2,20 @@
    LGPD CONSENT BANNER (RODAPE BLOQUEANTE)
    ======================================== */
 
-/* Overlay fullscreen INVISIVEL que bloqueia cliques na pagina */
+/* Overlay fullscreen que bloqueia cliques */
 .lgpd-banner {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 99999;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background: transparent;
 }
 
 .lgpd-banner.active {
-    opacity: 1;
-    visibility: visible;
+    display: block;
 }
 
 /* Barra visivel no rodape */
