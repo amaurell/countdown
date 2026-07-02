@@ -11,7 +11,7 @@
 // ============================================
 const AppConfig = Object.freeze({
     APP_NAME: 'Countdown Timer',
-    VERSION: '2.0.0',
+    VERSION: '2.1.0',
     UPDATE_INTERVAL: 1000,
 
     TARGET_DATE: {
@@ -32,9 +32,21 @@ const AppConfig = Object.freeze({
         }
     },
 
+    LGPD: {
+        CONSENT_KEY: 'lgpd-consent',
+        VALUES: {
+            ACCEPTED: 'accepted',
+            REJECTED: 'rejected',
+            UNDECIDED: null
+        }
+    },
+
     SELECTORS: {
         THEME_TOGGLE: '#theme-toggle',
         THEME_ICON: '.theme-icon',
+        LGPD_BANNER: '#lgpd-banner',
+        LGPD_ACCEPT: '#lgpd-accept',
+        LGPD_REJECT: '#lgpd-reject',
         ELEMENTS: {
             MONTHS: '#months',
             DAYS: '#days',
@@ -127,10 +139,62 @@ class TimeUtils {
 // ============================================
 // SERVICES
 // ============================================
+
+/**
+ * LGPD Consent Service
+ * Gerencia o consentimento do usuario antes de qualquer armazenamento local.
+ * LGPD (Lei 13.709/2018) - Art. 7, I: consentimento do titular.
+ */
+class ConsentService {
+    constructor(storageService) {
+        this.storage = storageService;
+        this.config = AppConfig.LGPD;
+        this._consent = this._loadConsent();
+    }
+
+    _loadConsent() {
+        // Tenta carregar sem afetar o storage (leitura apenas)
+        try {
+            const value = window.localStorage.getItem(this.config.CONSENT_KEY);
+            if (value === this.config.VALUES.ACCEPTED) return this.config.VALUES.ACCEPTED;
+            if (value === this.config.VALUES.REJECTED) return this.config.VALUES.REJECTED;
+        } catch (e) {
+            // localStorage nao disponivel
+        }
+        return this.config.VALUES.UNDECIDED;
+    }
+
+    getStatus() {
+        return this._consent;
+    }
+
+    hasConsent() {
+        return this._consent === this.config.VALUES.ACCEPTED;
+    }
+
+    isUndecided() {
+        return this._consent === this.config.VALUES.UNDECIDED;
+    }
+
+    accept() {
+        this._consent = this.config.VALUES.ACCEPTED;
+        this.storage.setItem(this.config.CONSENT_KEY, this.config.VALUES.ACCEPTED);
+        return true;
+    }
+
+    reject() {
+        this._consent = this.config.VALUES.REJECTED;
+        // Salva a rejeicao para nao mostrar o banner de novo
+        this.storage.setItem(this.config.CONSENT_KEY, this.config.VALUES.REJECTED);
+        return true;
+    }
+}
+
 class StorageService {
-    constructor() {
+    constructor(consentService) {
         this.storage = window.localStorage;
         this.isAvailable = this._checkAvailability();
+        this.consent = consentService;
     }
 
     _checkAvailability() {
@@ -156,7 +220,23 @@ class StorageService {
         }
     }
 
+    /**
+     * So salva no localStorage se o usuario consentiu.
+     * LGPD Art. 7, I: tratamento mediante consentimento.
+     */
     setItem(key, value) {
+        // Chave de consentimento sempre pode ser salva (necessario para lembrar a escolha)
+        if (key === AppConfig.LGPD.CONSENT_KEY) {
+            return this._rawSet(key, value);
+        }
+        // Demais chaves so com consentimento
+        if (!this.consent.hasConsent()) {
+            return false;
+        }
+        return this._rawSet(key, value);
+    }
+
+    _rawSet(key, value) {
         if (!this.isAvailable) return false;
         try {
             this.storage.setItem(key, value);
@@ -228,15 +308,21 @@ class DOMService {
 }
 
 class ThemeService {
-    constructor(storageService, domService) {
+    constructor(storageService, domService, consentService) {
         this.storage = storageService;
         this.dom = domService;
+        this.consent = consentService;
         this.config = AppConfig.THEME;
+        // Tenta carregar tema salvo. Se nao houver consentimento, usa o padrao.
         this.currentTheme = this._loadTheme();
     }
 
     _loadTheme() {
-        return this.storage.getItem(this.config.STORAGE_KEY, this.config.DEFAULT);
+        // So le o tema salvo se houver consentimento
+        if (this.consent.hasConsent()) {
+            return this.storage.getItem(this.config.STORAGE_KEY, this.config.DEFAULT);
+        }
+        return this.config.DEFAULT;
     }
 
     getCurrentTheme() {
@@ -271,6 +357,7 @@ class ThemeService {
         this.currentTheme = theme;
         this._applyTheme(theme);
         this._updateIcon(theme);
+        // Tenta salvar — StorageService so persiste se houver consentimento
         this.storage.setItem(this.config.STORAGE_KEY, theme);
         return true;
     }
@@ -358,6 +445,75 @@ class CountdownService {
 // ============================================
 // CONTROLLERS
 // ============================================
+class ConsentController {
+    constructor(consentService, domService, themeService) {
+        this.consent = consentService;
+        this.dom = domService;
+        this.themeService = themeService;
+        this.banner = null;
+        this._boundHandleAccept = this._handleAccept.bind(this);
+        this._boundHandleReject = this._handleReject.bind(this);
+    }
+
+    _handleAccept() {
+        this.consent.accept();
+        this._hideBanner();
+        // Agora que tem consentimento, salva o tema atual
+        this.themeService.setTheme(this.themeService.getCurrentTheme());
+        console.log('✅ LGPD: Consentimento aceito. Preferencia de tema salva.');
+    }
+
+    _handleReject() {
+        this.consent.reject();
+        this._hideBanner();
+        console.log('ℹ️ LGPD: Consentimento recusado. Nada salvo no navegador.');
+    }
+
+    _showBanner() {
+        if (this.banner) {
+            // Pequeno delay para animacao de entrada
+            requestAnimationFrame(() => {
+                this.banner.classList.add('active');
+            });
+        }
+    }
+
+    _hideBanner() {
+        if (this.banner) {
+            this.banner.classList.remove('active');
+        }
+    }
+
+    initialize() {
+        this.banner = this.dom.getElement(AppConfig.SELECTORS.LGPD_BANNER);
+        if (!this.banner) {
+            console.warn('LGPD banner element not found');
+            return false;
+        }
+
+        // Se ja foi decidido, nao mostra o banner
+        if (!this.consent.isUndecided()) {
+            return false;
+        }
+
+        // Mostra o banner
+        this._showBanner();
+
+        // Adiciona eventos
+        const acceptBtn = this.dom.getElement(AppConfig.SELECTORS.LGPD_ACCEPT);
+        const rejectBtn = this.dom.getElement(AppConfig.SELECTORS.LGPD_REJECT);
+
+        if (acceptBtn) {
+            this.dom.addEventListener(acceptBtn, 'click', this._boundHandleAccept);
+        }
+        if (rejectBtn) {
+            this.dom.addEventListener(rejectBtn, 'click', this._boundHandleReject);
+        }
+
+        return true;
+    }
+}
+
 class ThemeController {
     constructor(themeService, domService) {
         this.themeService = themeService;
@@ -422,9 +578,17 @@ class CountdownApp {
 
     _initializeServices() {
         try {
-            this.services.storage = new StorageService();
+            // ConsentService primeiro (nao precisa de storage ainda)
+            this.services.consent = new ConsentService(null); // temporario
+            // StorageService com consent
+            this.services.storage = new StorageService(this.services.consent);
+            // Reconstroi ConsentService com storage real
+            this.services.consent = new ConsentService(this.services.storage);
+            // Atualiza StorageService com o consent real
+            this.services.storage.consent = this.services.consent;
+
             this.services.dom = new DOMService();
-            this.services.theme = new ThemeService(this.services.storage, this.services.dom);
+            this.services.theme = new ThemeService(this.services.storage, this.services.dom, this.services.consent);
             this.services.countdown = new CountdownService(this.services.dom);
             console.log('✓ Services initialized');
             return true;
@@ -436,6 +600,9 @@ class CountdownApp {
 
     _initializeControllers() {
         try {
+            this.controllers.consent = new ConsentController(
+                this.services.consent, this.services.dom, this.services.theme
+            );
             this.controllers.theme = new ThemeController(this.services.theme, this.services.dom);
             this.controllers.countdown = new CountdownController(this.services.countdown);
             console.log('✓ Controllers initialized');
@@ -448,6 +615,7 @@ class CountdownApp {
 
     _startControllers() {
         try {
+            this.controllers.consent.initialize();
             this.controllers.theme.initialize();
             this.controllers.countdown.initialize();
             console.log('✓ Controllers started');

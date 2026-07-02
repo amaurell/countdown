@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contagem Regressiva</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-lgpd.css">
     <link rel="stylesheet" href="fonts/fonts.css">
 </head>
 
@@ -36,9 +37,25 @@
         </div>
     </div>
 
-    <!-- Application - Standalone Version (funciona sem servidor HTTP) -->
+    <!-- LGPD Consent Banner -->
+    <div id="lgpd-banner" class="lgpd-banner" role="dialog" aria-label="Aviso de Privacidade">
+        <div class="lgpd-banner-content">
+            <div class="lgpd-banner-icon">🔒</div>
+            <div class="lgpd-banner-text">
+                <p>Este site armazena sua preferência de tema (claro/escuro) no navegador para melhorar sua experiência. <strong>Não coletamos dados pessoais, não usamos cookies de rastreamento.</strong></p>
+                <p>Você pode escolher se permite ou não o armazenamento local.</p>
+            </div>
+            <div class="lgpd-banner-actions">
+                <button id="lgpd-accept" class="lgpd-btn lgpd-btn-primary">Aceitar</button>
+                <button id="lgpd-reject" class="lgpd-btn lgpd-btn-secondary">Recusar</button>
+                <a href="privacidade.html" class="lgpd-link">Política de Privacidade</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application - Standalone Version -->
     <script src="app-standalone.js"></script>
-    <div class="lgpd-footer" style="text-align:center;padding:20px;font-size:12px;color:#888;border-top:1px solid #333;margin-top:40px">
+    <div class="lgpd-footer" style="text-align:center;padding:20px;font-size:12px;color:#888;border-top:1px solid #333;margin-top:40px;z-index:1;position:relative">
         <a href="privacidade.html" style="color:#888;text-decoration:none">Política de Privacidade</a>
     </div>
 </body>

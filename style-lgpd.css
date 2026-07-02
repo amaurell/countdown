@@ -1,0 +1,168 @@
+/* ========================================
+   LGPD CONSENT BANNER
+   ======================================== */
+.lgpd-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    background: rgba(10, 10, 25, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    padding: 16px 24px;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.lgpd-banner.active {
+    transform: translateY(0);
+}
+
+.lgpd-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.lgpd-banner-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.lgpd-banner-text {
+    flex: 1;
+    min-width: 200px;
+}
+
+.lgpd-banner-text p {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.lgpd-banner-text p:first-child {
+    margin-bottom: 4px;
+}
+
+.lgpd-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+.lgpd-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.lgpd-btn-primary {
+    background: linear-gradient(135deg, #6c5ce7, #a855f7);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+}
+
+.lgpd-btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+}
+
+.lgpd-btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.lgpd-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.lgpd-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+    transition: color 0.2s;
+}
+
+.lgpd-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .lgpd-banner {
+    background: rgba(240, 242, 245, 0.97);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .lgpd-banner-text p {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="light"] .lgpd-btn-secondary {
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .lgpd-btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+[data-theme="light"] .lgpd-link {
+    color: rgba(0, 0, 0, 0.4);
+    border-bottom-color: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .lgpd-link:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile: banner empilhado */
+@media screen and (max-width: 600px) {
+    .lgpd-banner {
+        padding: 16px;
+    }
+
+    .lgpd-banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .lgpd-banner-actions {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .lgpd-banner-text p {
+        font-size: 12px;
+    }
+
+    .lgpd-btn {
+        font-size: 12px;
+        padding: 10px 16px;
+        flex: 1;
+        min-width: 100px;
+    }
+}

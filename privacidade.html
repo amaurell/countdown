@@ -5,50 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Política de Privacidade - Countdown</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-lgpd.css">
     <link rel="stylesheet" href="fonts/fonts.css">
     <style>
         body { font-family: 'Inter', sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; }
         h1 { font-size: 28px; margin-bottom: 10px; }
         h2 { font-size: 20px; margin-top: 30px; }
         p { margin: 10px 0; }
+        ul { margin: 10px 0 10px 20px; }
+        li { margin: 5px 0; }
         .back { display: inline-block; margin-top: 30px; color: #666; text-decoration: none; }
         .back:hover { text-decoration: underline; }
+        .highlight { background: rgba(108, 92, 231, 0.1); border-left: 3px solid #6c5ce7; padding: 12px 16px; border-radius: 4px; margin: 15px 0; }
     </style>
 </head>
 <body>
     <h1>Política de Privacidade</h1>
     <p><strong>Última atualização:</strong> 02 de julho de 2026</p>
 
-    <h2>1. Dados Coletados</h2>
-    <p>Este site é um cronômetro estático e <strong>não coleta, armazena ou processa</strong> dados pessoais dos usuários. Nenhum formulário de cadastro, login ou coleta de informações é utilizado.</p>
+    <div class="highlight">
+        <strong>🔒 Resumo:</strong> Este site é um cronômetro simples. Armazenamos <strong>apenas</strong> sua preferência visual (tema claro/escuro) no navegador, <strong>com seu consentimento</strong>. Nenhum dado é enviado para servidores externos.
+    </div>
 
-    <h2>2. Dados Técnicos (Logs do Servidor)</h2>
-    <p>O servidor web pode registrar temporariamente o endereço IP do visitante, dados de navegação e tipo de dispositivo para fins de operação e segurança. Estes logs são armazenados apenas pelo tempo necessário e não são compartilhados com terceiros.</p>
-
-    <h2>3. Fontes e Recursos</h2>
-    <p>As fontes utilizadas neste site são servidas localmente, sem requisições externas. Nenhum dado é enviado a serviços de terceiros durante o carregamento da página.</p>
-
-    <h2>4. Cookies</h2>
-    <p>Este site <strong>não utiliza cookies</strong> de rastreamento, publicidade ou funcionalidade.</p>
-
-    <h2>5. Compartilhamento com Terceiros</h2>
-    <p>Não compartilhamos dados pessoais com terceiros.</p>
-
-    <h2>6. Direitos do Titular (LGPD)</h2>
-    <p>Nos termos da Lei Geral de Proteção de Dados (Lei 13.709/2018), você tem direito a:</p>
+    <h2>1. Dados Armazenados Localmente</h2>
+    <p>Com o seu consentimento, este site armazena no seu navegador (localStorage):</p>
     <ul>
-        <li>Confirmar a existência de tratamento de dados</li>
-        <li>Acessar seus dados pessoais</li>
-        <li>Solicitar a correção ou exclusão dos dados</li>
+        <li><strong>Preferência de tema</strong> (claro/escuro) — chave: <code>countdown-theme-preference</code></li>
+        <li><strong>Registro de consentimento</strong> — chave: <code>lgpd-consent</code></li>
     </ul>
-    <p>Como não coletamos dados pessoais, estes direitos são automaticamente resguardados.</p>
+    <p>Este armazenamento é <strong>exclusivamente local</strong>. Nenhum dado é transmitido para servidores, APIs ou terceiros.</p>
 
-    <h2>7. Contato</h2>
-    <p>Para questões sobre privacidade: <a href="mailto:contato@ambtek.com.br">contato@ambtek.com.br</a></p>
+    <h2>2. Finalidade do Armazenamento</h2>
+    <p>A preferência de tema é salva para que, ao retornar ao site, sua escolha visual seja preservada. Sem este dado, o tema padrão (escuro) é usado a cada visita.</p>
 
-    <h2>8. Alterações</h2>
+    <h2>3. Cookies</h2>
+    <p>Este site <strong>não utiliza cookies</strong> de rastreamento, publicidade, analytics ou funcionalidade. Apenas o armazenamento local descrito acima é utilizado.</p>
+
+    <h2>4. Dados Técnicos (Logs do Servidor)</h2>
+    <p>O servidor web pode registrar temporariamente o endereço IP do visitante para fins de operação e segurança. Estes logs são armazenados apenas pelo tempo necessário e não são compartilhados com terceiros.</p>
+
+    <h2>5. Fontes e Recursos</h2>
+    <p>Todos os recursos (fontes, CSS, imagens) são servidos localmente pelo próprio site. Nenhuma requisição externa é feita durante o carregamento.</p>
+
+    <h2>6. Compartilhamento com Terceiros</h2>
+    <p>Não compartilhamos dados pessoais com terceiros. Não utilizamos Google Analytics, Facebook Pixel, ou qualquer serviço de rastreamento.</p>
+
+    <h2>7. Seus Direitos (LGPD - Lei 13.709/2018)</h2>
+    <p>Você tem direito a:</p>
+    <ul>
+        <li><strong>Confirmar</strong> a existência de tratamento de dados</li>
+        <li><strong>Acessar</strong> os dados armazenados sobre você</li>
+        <li><strong>Solicitar a exclusão</strong> dos dados — para remover o que foi salvo no seu navegador, utilize a opção "Recusar" no banner de consentimento ou limpe o localStorage do seu navegador</li>
+        <li><strong>Revogar</strong> o consentimento a qualquer momento</li>
+    </ul>
+    <p>Você pode gerenciar o armazenamento local do seu navegador a qualquer momento através das configurações de privacidade do seu navegador.</p>
+
+    <h2>8. Base Legal</h2>
+    <p>O tratamento de dados é realizado com base no <strong>consentimento do titular</strong> (Art. 7º, I da LGPD), obtido através do banner exibido na primeira visita.</p>
+
+    <h2>9. Contato</h2>
+    <p>Para questões relacionadas à privacidade e proteção de dados:</p>
+    <p>Email: <a href="mailto:contato@ambtek.com.br">contato@ambtek.com.br</a></p>
+
+    <h2>10. Alterações</h2>
     <p>Esta política pode ser atualizada periodicamente. Recomendamos a revisão ocasional desta página.</p>
 
     <a href="index.html" class="back">&larr; Voltar</a>
+
+    <script>
+        // Aplicar tema salvo na pagina de privacidade
+        try {
+            var theme = localStorage.getItem('countdown-theme-preference');
+            var consent = localStorage.getItem('lgpd-consent');
+            if (consent === 'accepted' && theme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+            }
+        } catch(e) {}
+    </script>
 </body>
 </html>
