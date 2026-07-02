@@ -1,72 +1,92 @@
 /* ========================================
-   LGPD CONSENT BANNER
+   LGPD CONSENT OVERLAY (MODAL BLOQUEANTE)
    ======================================== */
+
+/* Overlay fullscreen que bloqueia interacao com a pagina */
 .lgpd-banner {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     z-index: 99999;
-    background: rgba(10, 10, 25, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-    padding: 16px 24px;
-    transform: translateY(100%);
-    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    background: rgba(5, 5, 16, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .lgpd-banner.active {
-    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
 }
 
+/* Card do banner centralizado */
 .lgpd-banner-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    max-width: 520px;
+    width: 100%;
+    background: rgba(20, 20, 35, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 32px 28px 24px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    text-align: center;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lgpd-banner.active .lgpd-banner-content {
+    transform: scale(1) translateY(0);
 }
 
 .lgpd-banner-icon {
-    font-size: 24px;
-    flex-shrink: 0;
+    font-size: 40px;
+    margin-bottom: 12px;
 }
 
 .lgpd-banner-text {
-    flex: 1;
-    min-width: 200px;
+    margin-bottom: 20px;
 }
 
 .lgpd-banner-text p {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
 }
 
 .lgpd-banner-text p:first-child {
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.lgpd-banner-text strong {
+    color: #fff;
 }
 
 .lgpd-banner-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    flex-shrink: 0;
     flex-wrap: wrap;
 }
 
 .lgpd-btn {
     font-family: 'Inter', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 8px 20px;
+    padding: 10px 28px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
@@ -75,18 +95,18 @@
 .lgpd-btn-primary {
     background: linear-gradient(135deg, #6c5ce7, #a855f7);
     color: #fff;
-    box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.35);
 }
 
 .lgpd-btn-primary:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+    box-shadow: 0 6px 25px rgba(108, 92, 231, 0.5);
 }
 
 .lgpd-btn-secondary {
     background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .lgpd-btn-secondary:hover {
@@ -97,31 +117,41 @@
 .lgpd-link {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
     border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
     transition: color 0.2s;
+    display: inline-block;
+    margin-left: 4px;
 }
 
 .lgpd-link:hover {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
     border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Light mode adjustments */
 [data-theme="light"] .lgpd-banner {
-    background: rgba(240, 242, 245, 0.97);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(240, 242, 245, 0.85);
+}
+
+[data-theme="light"] .lgpd-banner-content {
+    background: rgba(255, 255, 255, 0.97);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
 }
 
 [data-theme="light"] .lgpd-banner-text p {
-    color: rgba(0, 0, 0, 0.75);
+    color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .lgpd-banner-text strong {
+    color: #000;
 }
 
 [data-theme="light"] .lgpd-btn-secondary {
-    background: rgba(0, 0, 0, 0.06);
-    color: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -131,38 +161,47 @@
 }
 
 [data-theme="light"] .lgpd-link {
-    color: rgba(0, 0, 0, 0.4);
+    color: rgba(0, 0, 0, 0.35);
     border-bottom-color: rgba(0, 0, 0, 0.15);
 }
 
 [data-theme="light"] .lgpd-link:hover {
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(0, 0, 0, 0.7);
 }
 
-/* Mobile: banner empilhado */
+/* Mobile */
 @media screen and (max-width: 600px) {
     .lgpd-banner {
         padding: 16px;
+        align-items: flex-end;
     }
 
     .lgpd-banner-content {
-        flex-direction: column;
-        text-align: center;
+        padding: 24px 20px 20px;
+        border-radius: 16px;
     }
 
-    .lgpd-banner-actions {
-        justify-content: center;
-        width: 100%;
+    .lgpd-banner-icon {
+        font-size: 32px;
     }
 
     .lgpd-banner-text p {
-        font-size: 12px;
+        font-size: 13px;
+    }
+
+    .lgpd-banner-actions {
+        flex-direction: column;
+        width: 100%;
     }
 
     .lgpd-btn {
-        font-size: 12px;
-        padding: 10px 16px;
-        flex: 1;
-        min-width: 100px;
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .lgpd-link {
+        margin-left: 0;
+        margin-top: 4px;
     }
 }
